@@ -1,6 +1,7 @@
 package com.tianshaokai.video;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -10,8 +11,8 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import org.videolan.vlc.gui.video.VideoPlayerActivity;
 import org.videolan.vlc.media.MediaUtils;
 
 import java.util.ArrayList;
@@ -55,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 //Toast.makeText(MainActivity.this, "group=" + groupPosition + "---child=" + childPosition + "---" + childArray.get(groupPosition).get(childPosition).getUri(), Toast.LENGTH_SHORT).show();
                 Video video = childArray.get(groupPosition).get(childPosition);
-                MediaUtils.openStream(MainActivity.this, video.getUri(), video.getName());
+
+                // Two method to open the video.
+                //MediaUtils.openStream(MainActivity.this, video.getUri(), video.getName());
+                VideoPlayerActivity.start(MainActivity.this, Uri.parse(video.getUri()), video.getName());
                 return false;
             }
         });
