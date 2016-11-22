@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <!--<string name="app_name">Lucky View</string>-->
+    <string name="title_activity_video_player">Lucky Video Player</string>
+    <string name="title_activity_audio_player">Lucky Audio Player</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="search_videos">Search Videos</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="video_list">Video List</string>
+
+    <string name="submit">Submit</string>
+    <string name="title_audio_selection_activity">Audio selection</string>
+    <string name="title_video_selection_activity">Video selection</string>
+    <string name="description">Media Controls</string>
+    <string name="app_name_sunny">Sunny TV</string>
+    <string name="app_name_kgb">KGB TV</string>
+    <string name="app_name_g2s">G2S TV</string>
+    <string name="app_name_epo">iview HD</string>
+    <string name="app_name_vanky">Vanky TV</string>
+    <string name="app_name_dream">Dream TV</string>
+    <string name="app_name_club">Club TV</string>
+    <string name="app_name_rio">Rio TV</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="all">ALL</string>
+    <string name="id">User ID</string>
+    <string name="user_id_hint">Enter your User ID</string>
+    <string name="token">Token</string>
+    <string name="version">Version</string>
+    <string name="vol">Volume</string>
+    <string name="bright">Bright</string>
+    <string name="country">Country</string>
+    <string name="first_help">Press Menu for Setting</string>
+    <string name="seek_help">Time Seek</string>
+    <string name="change_help">Change</string>
+    <string name="setting_help">Settings</string>
+    <string name="channel_help">Channel List</string>
+    <string name="account_title">Account info</string>
+    <string name="package_title">Package</string>
+    <string name="valid_until">Valid Until</string>
+    <string name="all_programs">All Channels</string>
+    <string name="null_title">Null</string>
+    <string name="active_code">Active code</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="get_card_info_error">Invalid active code</string>
+    <string name="recharge_error">Recharge fail</string>
+    <string name="recharge_ok">Recharge success</string>
+    <string name="you_have_subscribed_free_card">Error: free package can be used only once</string>
+    <string name="play_error">Play error</string>
+    <string name="exit_prog">Press back again to exit application</string>
+    <string name="wait_recharge">Recharging, please wait</string>
+    <string name="power_off">System will power off</string>
+    <string name="network_error">Network is unavailable, please check</string>
+    <string name="wait_login">Login, please wait</string>
+    <string name="wait_download_programs">Get Channels, please wait</string>
+    <string name="wait_play">Start play, please wait</string>
+    <string name="wait_download">Upgrading software, please wait</string>
+    <string name="epg_detail">EPG Detail</string>
+    <string name="no_epg_name">No EPG information</string>
+    <string name="no_epg_detail">No detail information</string>
+    <string name="epg_now">EPG now</string>
+    <string name="epg_schedule">EPG schedule</string>
+    <string name="to_now">Switch to now</string>
+    <string name="to_schedule">Switch to schedule</string>
+    <string name="chnm">Channels</string>
+    <string
+        name="uk">UK</string>
+
+
+    <string name="account_info">Please contact us by email at iptvbay@gmail.com | 2016 ®All Right Reserved ADEView </string>
+
+
+
+
+
+    <string
+        name="arab">ARAB</string>
+    <string
+        name="ita">ITALIAN</string>
+    <string
+        name="som">AFRICAN</string>
+    <string
+        name="ger">GERMANY</string>
+    <string
+        name="frn">FRANCE</string>
+        <string
+            name="ind">INDIAN</string>
+        <string
+            name="oth">OTHERS</string>
+        <string
+            name="spo">SPORTS</string>
+     <string
+         name="spa">SPAIN</string>
+    <string
+        name="nl">NETHERLAND</string>
+        <string
+            name="usa">USA</string>
+        <string
+            name="rus">RUSSIA</string>
+        <string
+            name="eu">EAST EUROPE</string>
+     <string
+         name="swe">SCANDINAVIAN</string>
+         <string
+             name="sth">SOUTH AMERICA</string>
+
+
+
+
+
+    <string name="video">Video</string>
+
+    <string name="audio">Audio</string>
+
+    <string name="text">Text</string>
+
+    <string name="retry">Retry</string>
+
+    <string name="selection_disabled">Disabled</string>
+
+    <string name="selection_default">Default</string>
+
+    <string name="selection_default_none">Default (none)</string>
+
+    <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
+
+    <string name="enable_random_adaptation">Enable random adaptation</string>
+
+    <string name="error_drm_not_supported">Protected content not supported on API levels below 18</string>
+
+    <string name="error_drm_unsupported_scheme">This device does not support the required DRM scheme</string>
+
+    <string name="error_drm_unknown">An unknown DRM error occurred</string>
+
+    <string name="error_no_decoder">This device does not provide a decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_no_secure_decoder">This device does not provide a secure decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_querying_decoders">Unable to query device decoders</string>
+
+    <string name="error_instantiating_decoder">Unable to instantiate decoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
+
+    <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
+
+    <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
+
+    <string name="storage_permission_denied">Permission to access storage was denied</string>
+
+    <string name="sample_list_load_error">One or more sample lists failed to load</string>
+
+
+
+
+
+
+
+
+    </resources>
+

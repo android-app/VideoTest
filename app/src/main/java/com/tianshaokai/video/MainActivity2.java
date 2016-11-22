@@ -1,9 +1,9 @@
 package com.tianshaokai.video;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,54 +12,97 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import org.videolan.vlc.gui.video.VideoPlayerActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.videolan.vlc.media.MediaUtils;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import rx.Observable;
+import rx.functions.Action1;
+
+public class MainActivity2 extends AppCompatActivity {
 
     //定义两个List，用来存放控件中Group/Child中的String
     private List<String> groupArray;
-    private List<List<Video>> childArray;
+    private List<List<VideoLive>> childArray;
+    ExpandableListView expandableListView;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        expandableListView = (ExpandableListView)findViewById(R.id.listView);
         //对这两个List进行初始化，并插入一些数据
         groupArray = new ArrayList<String>();
-        childArray = new ArrayList<List<Video>>();
+        childArray = new ArrayList<List<VideoLive>>();
+        getVideoJson();
+    }
 
-        groupArray.add("视频1");
-        groupArray.add("视频2");
+    private void getVideoJson() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://satdoc.dyndns.info/")
+                .client(AFHttpClient.getHttpClient())
+                .build();
 
-        List<Video> tempArray = new ArrayList<Video>();
-        Video video = new Video();
-        video.setName("唐唐讲段子");
-        video.setUri("http://mvvideo1.meitudata.com/579f07913f4254431.mp4");
-        tempArray.add(video);
+        VideoService loginService = retrofit.create(VideoService.class);
+        Call<ResponseBody> call = loginService.getJson();
 
-        for (int index = 0; index < groupArray.size(); ++index) {
-            childArray.add(tempArray);
-        }
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String jsonString = null;
+                try {
+                    jsonString = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Type listType = new TypeToken<ArrayList<VideoInfo>>(){}.getType();
+                ArrayList<VideoInfo> videoInfoList = new Gson().fromJson(jsonString, listType);
 
-        //给定义好的ExpandableListView添加上Adapter
-        ExpandableListView expandableListView = (ExpandableListView)findViewById(R.id.listView);
+                Log.d("获取的视频个数: ", "" + videoInfoList.size());
+
+                setData(videoInfoList);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("wxl", "onFailure=" + t.getMessage());
+            }
+        });
+    }
+
+    private void setData(ArrayList<VideoInfo> videoInfoList) {
+        Observable.from(videoInfoList).subscribe(new Action1<VideoInfo>() {
+            @Override
+            public void call(VideoInfo videoInfo) {
+                groupArray.add(videoInfo.getName());
+
+                childArray.add(videoInfo.getSamples());
+            }
+        });
+        initView();
+    }
+
+    private void initView() {
         ExpandableAdapter adapter = new ExpandableAdapter(this);
         expandableListView.setAdapter(adapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                //Toast.makeText(MainActivity.this, "group=" + groupPosition + "---child=" + childPosition + "---" + childArray.get(groupPosition).get(childPosition).getUri(), Toast.LENGTH_SHORT).show();
-                Video video = childArray.get(groupPosition).get(childPosition);
+                VideoLive video = childArray.get(groupPosition).get(childPosition);
 
-                // Two method to open the video.
-                MediaUtils.openStream(MainActivity.this, video.getUri(), video.getName());
-                //VideoPlayerActivity.start(MainActivity.this, Uri.parse(video.getUri()), video.getName());
+                MediaUtils.openStream(MainActivity2.this, video.getChlink(), video.getChname());
                 return false;
             }
         });
@@ -87,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         public View getChildView(int groupPosition, int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
-            Video video = childArray.get(groupPosition).get(childPosition);
+            VideoLive video = childArray.get(groupPosition).get(childPosition);
             AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(
                     ViewGroup.LayoutParams.FILL_PARENT, 64);
             TextView text = new TextView(activity);
@@ -96,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             text.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
             // Set the text starting position
             text.setPadding(36, 0, 0, 0);
-            text.setText(video.getName());
+            text.setText(video.getChname());
             return text;
         }
 
